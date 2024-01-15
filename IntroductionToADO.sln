@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntroductionToADO", "IntroductionToADO\IntroductionToADO.csproj", "{BD0B201C-9457-46DE-944F-969DB2AFFDF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{29AA98CE-30BA-4ECA-9B67-DC0EE19D5397}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BD0B201C-9457-46DE-944F-969DB2AFFDF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD0B201C-9457-46DE-944F-969DB2AFFDF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD0B201C-9457-46DE-944F-969DB2AFFDF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AA98CE-30BA-4ECA-9B67-DC0EE19D5397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AA98CE-30BA-4ECA-9B67-DC0EE19D5397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AA98CE-30BA-4ECA-9B67-DC0EE19D5397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AA98CE-30BA-4ECA-9B67-DC0EE19D5397}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
