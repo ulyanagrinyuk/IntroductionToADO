@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading;
 
 namespace IntroductionToADO
 {
@@ -27,12 +28,49 @@ namespace IntroductionToADO
 			cmd.CommandText = select_string;
 
 			SqlDataReader rdr = cmd.ExecuteReader();
-			while(rdr.Read())
+			while (rdr.Read())
 			{
 				Console.WriteLine($"{rdr[0]} {rdr[1]} {rdr[2]}");
 			}
+			connection.Close();
+			rdr.Close();
+			int choose = 1;
+			Console.WriteLine($"\n\nВведите действие:\n[o] - добавить книгу\n[p] - выйти.\n");
+			switch (choose)
+			{
+				case 0:
+					break;
+				case 1:
+					{
+						Console.WriteLine("Введите имя Автора книги:\n");
+						string first_name = Console.ReadLine();
+						Console.WriteLine("Введите Фамилию Автора книги:\n");
+						string last_name = Console.ReadLine();
 
-			connection.Close(); 
+						SqlCommand author_cmd = new SqlCommand($"INSERT INTO Authors (first_name,last_name) VALUES ('{first_name}','{last_name}')", connection);
+						author_cmd.ExecuteNonQuery();
+
+						author_cmd.CommandText = ($"SELECT Authors.id FROM Authors WHERE Authors.first_name = '{first_name}' AND Authors.last_name = '{last_name}'");
+						SqlDataReader author_rdr = author_cmd.ExecuteReader();
+						author_rdr.Read();
+
+						Console.WriteLine("Введите название книги:\n");
+						string book = Console.ReadLine();
+						Console.WriteLine("Введите стоимость книги:\n");
+						string price = (Console.ReadLine());
+						Console.WriteLine("Введите количество страниц книги:\n");
+						string pages = (Console.ReadLine());
+
+						SqlCommand book_cmd = new SqlCommand($"INSERT INTO Books (author,title,price,pages) VALUES ({author_rdr[0]},'{book}',{price},{pages})", connection);
+						author_rdr.Close();
+						book_cmd.ExecuteNonQuery();
+					}
+					break;
+			}
+			Thread.Sleep(100);
+
+			connection.Close();
 		}
 	}
+
 }
