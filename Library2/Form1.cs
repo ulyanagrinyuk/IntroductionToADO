@@ -97,11 +97,11 @@ namespace Library2
             //заполняем строки содержимым
             while (reader.Read())
             {
-                //создаем новуб строку с заданным набором полей
+                //создаем новую строку с заданным набором полей
                 DataRow row = table.NewRow();
                 // заполняем строку данными
                 for (int i = 0; i < reader.FieldCount; i++) row[i] = reader[i];
-                //добавляе заполненную строку в таблицу
+                //добавляем заполненную строку в таблицу
                 table.Rows.Add(row);
             }
             dgwResults.DataSource = table;
