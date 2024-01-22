@@ -29,6 +29,7 @@ namespace Academy
 			LoadGroupsToComboBox(cbGroup);
 			LoadDirectionsToComboBox();
 			SelectStudents();
+			rbStudents.Checked = true;
 		}
 		void LoadTablesCombobox()
 		{
@@ -166,6 +167,81 @@ VALUES (@last_name, @first_name, @middle_name, @birth_date, (SELECT group_id FRO
 				cbGroup.SelectedItem = add_student.Group;
 				SelectStudents();
 			}
+		}
+
+		private void cbDirection_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			dgvStudents.DataSource = null;
+			SqlCommand cmd = new SqlCommand();
+			cmd.Connection = connection;
+			if(cbDirection.SelectedItem != null)cmd.Parameters.Add(@"direction", cbDirection.SelectedItem);
+			if(rbStudents.Checked )
+			{
+			cmd.CommandText = @"
+SELECT last_name, first_name, middle_name, birth_date, group_name, direction_name
+FROM 
+		Students
+JOIN 
+		Groups	
+ON
+		Students.[group]=Groups.group_id	
+JOIN  
+		Directions 
+ON 
+		Groups.direction=Directions.direction_id";
+			if(cbDirection.SelectedItem != null)cmd.CommandText +=
+@" WHERE  
+		Directions.direction_name=@direction
+";
+			}
+			if(rbGroups.Checked ) 
+			{
+			cmd.CommandText = @"
+SELECT 
+		group_name, direction_name
+FROM  
+		Groups
+JOIN  
+		Directions ON Groups.direction=Directions.direction_id";
+	if(cbDirection.SelectedItem != null) cmd.CommandText+=
+@" WHERE  
+		Directions.direction_name=@direction
+";
+			}
+			connection.Open();
+			reader = cmd.ExecuteReader();
+			table = new DataTable();
+			for (int i = 0; i < reader.FieldCount; i++)
+			{
+				table.Columns.Add(reader.GetName(i));
+			}
+			while(reader.Read())
+			{
+				DataRow row = table.NewRow();
+				for(int i = 0;i < reader.FieldCount;i++)
+				{
+					row[i] = reader[i];
+				}
+				table.Rows.Add(row);
+			}
+			dgvStudents.DataSource = table;
+			reader.Close();
+			int studentsCount = dgvStudents.RowCount -1;
+			lblStudCount.Text = $"Количество студентов {studentsCount}";
+			connection.Close();
+		}
+
+		private void rbGroups_CheckedChanged(object sender, EventArgs e)
+		{
+			if(rbGroups.Checked )
+			{
+				cbDirection_SelectedIndexChanged(sender, e);
+			}
+		}
+
+		private void rbStudents_CheckedChanged(object sender, EventArgs e)
+		{
+			cbDirection_SelectedIndexChanged(sender, e);
 		}
 	}
 }
