@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.lableFullName = new System.Windows.Forms.TextBox();
+			this.textBoxFullName = new System.Windows.Forms.TextBox();
 			this.labelFullName = new System.Windows.Forms.Label();
 			this.dateTimePickerBirthDate = new System.Windows.Forms.DateTimePicker();
 			this.labelBitrhDate = new System.Windows.Forms.Label();
@@ -38,12 +38,12 @@
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
-			// lableFullName
+			// textBoxFullName
 			// 
-			this.lableFullName.Location = new System.Drawing.Point(9, 21);
-			this.lableFullName.Name = "lableFullName";
-			this.lableFullName.Size = new System.Drawing.Size(330, 20);
-			this.lableFullName.TabIndex = 1;
+			this.textBoxFullName.Location = new System.Drawing.Point(9, 21);
+			this.textBoxFullName.Name = "textBoxFullName";
+			this.textBoxFullName.Size = new System.Drawing.Size(330, 20);
+			this.textBoxFullName.TabIndex = 1;
 			// 
 			// labelFullName
 			// 
@@ -89,6 +89,7 @@
 			// 
 			// buttonOK
 			// 
+			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.buttonOK.Location = new System.Drawing.Point(183, 170);
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.Size = new System.Drawing.Size(75, 23);
@@ -118,7 +119,7 @@
 			this.Controls.Add(this.labelBitrhDate);
 			this.Controls.Add(this.dateTimePickerBirthDate);
 			this.Controls.Add(this.labelFullName);
-			this.Controls.Add(this.lableFullName);
+			this.Controls.Add(this.textBoxFullName);
 			this.Name = "AddStudent";
 			this.Text = "Cancel";
 			this.ResumeLayout(false);
@@ -128,7 +129,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.TextBox lableFullName;
+		private System.Windows.Forms.TextBox textBoxFullName;
 		private System.Windows.Forms.Label labelFullName;
 		private System.Windows.Forms.DateTimePicker dateTimePickerBirthDate;
 		private System.Windows.Forms.Label labelBitrhDate;

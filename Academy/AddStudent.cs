@@ -13,7 +13,6 @@ namespace Academy
 	public partial class AddStudent : Form
 	{
 		public string FullName {  get; set; }
-		public string textBoxFullName { get; set; }
 		public DateTime BirthDate { get; set; }
 		public string Group {  get; set; }
 		
@@ -32,10 +31,12 @@ namespace Academy
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			FullName = textBoxFullName;
+			FullName = textBoxFullName.Text;
 			BirthDate = dateTimePickerBirthDate.Value;
 			Group = comboBoxGroup.SelectedItem.ToString();
 			this.Close();
 		}
+
+		
 	}
 }

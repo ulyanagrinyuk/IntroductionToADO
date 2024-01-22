@@ -35,6 +35,7 @@
 			this.dgvStudents = new System.Windows.Forms.DataGridView();
 			this.cbGroup = new System.Windows.Forms.ComboBox();
 			this.tabPageTeachers = new System.Windows.Forms.TabPage();
+			this.cbDirection = new System.Windows.Forms.ComboBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPageStudents.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
@@ -52,6 +53,7 @@
 			// 
 			// tabPageStudents
 			// 
+			this.tabPageStudents.Controls.Add(this.cbDirection);
 			this.tabPageStudents.Controls.Add(this.lblStudCount);
 			this.tabPageStudents.Controls.Add(this.btnAdd);
 			this.tabPageStudents.Controls.Add(this.dgvStudents);
@@ -76,6 +78,7 @@
 			// btnAdd
 			// 
 			this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.btnAdd.Location = new System.Drawing.Point(685, 6);
 			this.btnAdd.Name = "btnAdd";
 			this.btnAdd.Size = new System.Drawing.Size(75, 23);
@@ -97,7 +100,7 @@
 			this.cbGroup.FormattingEnabled = true;
 			this.cbGroup.Location = new System.Drawing.Point(6, 6);
 			this.cbGroup.Name = "cbGroup";
-			this.cbGroup.Size = new System.Drawing.Size(308, 21);
+			this.cbGroup.Size = new System.Drawing.Size(145, 21);
 			this.cbGroup.TabIndex = 0;
 			this.cbGroup.SelectedIndexChanged += new System.EventHandler(this.cbGroup_SelectedIndexChanged);
 			// 
@@ -110,6 +113,14 @@
 			this.tabPageTeachers.TabIndex = 1;
 			this.tabPageTeachers.Text = "Преподаватели";
 			this.tabPageTeachers.UseVisualStyleBackColor = true;
+			// 
+			// cbDirection
+			// 
+			this.cbDirection.FormattingEnabled = true;
+			this.cbDirection.Location = new System.Drawing.Point(157, 6);
+			this.cbDirection.Name = "cbDirection";
+			this.cbDirection.Size = new System.Drawing.Size(149, 21);
+			this.cbDirection.TabIndex = 4;
 			// 
 			// Form1
 			// 
@@ -135,6 +146,7 @@
 		private System.Windows.Forms.DataGridView dgvStudents;
 		private System.Windows.Forms.Label lblStudCount;
 		private System.Windows.Forms.Button btnAdd;
+		private System.Windows.Forms.ComboBox cbDirection;
 	}
 }
 

@@ -27,6 +27,7 @@ namespace Academy
 			connection = new SqlConnection(connectionString);
 			//LoadTablesCombobox();
 			LoadGroupsToComboBox(cbGroup);
+			LoadDirectionsToComboBox();
 			SelectStudents();
 		}
 		void LoadTablesCombobox()
@@ -71,9 +72,23 @@ namespace Academy
 			reader = cmd.ExecuteReader();
 			while (reader.Read())
 			{
-				comboBox.Items.Add(reader.GetName(0));
+				comboBox.Items.Add(reader[0]);
 			}
-			reader.Close() ;
+			reader.Close();
+			connection.Close();
+		}
+		public void LoadDirectionsToComboBox()
+		{
+			string commandLine = @"SELECT direction_name FROM Directions";
+			SqlCommand cmd = new SqlCommand(commandLine, connection);
+
+			connection.Open();
+			reader = cmd.ExecuteReader();
+			while(reader.Read())
+			{
+				cbDirection.Items.Add(reader[0]);
+			}
+			reader.Close();
 			connection.Close();
 		}
 		void SelectStudents(string group = "")
@@ -141,9 +156,9 @@ FROM Students JOIN Groups ON [group]=group_id";
 				cmd.Parameters.Add(@"birth_date", add_student.BirthDate.ToString("yyyy-MM-dd"));
 				cmd.Parameters.Add("@group", add_student.Group);
 				cmd.CommandText = @"
-INSET INTO 
-Students(last_name,first_name, middle_name, birth_name, [group])
-VALUES (@last_name, @first_name, @middle_name, @birth_name, (SELECT group_id FROM Groups WHERE group_name=@group))
+INSERT INTO 
+Students(last_name,first_name, middle_name, birth_date, [group])
+VALUES (@last_name, @first_name, @middle_name, @birth_date, (SELECT group_id FROM Groups WHERE group_name=@group))
 ";
 				connection.Open();
 				cmd.ExecuteNonQuery();
