@@ -30,6 +30,7 @@ namespace Academy
 			LoadDirectionsToComboBox();
 			SelectStudents();
 			rbStudents.Checked = true;
+			LoadDataToComboBox(cbDirectionOnGroupTab, "Directions", "direction_name", "Выберите направления");
 		}
 		void LoadTablesCombobox()
 		{
@@ -65,6 +66,42 @@ namespace Academy
 			reader.Close();
 			connection.Close();
 		}
+		public void SelectDataFromTable(System.Windows.Forms.DataGridView dataGridView, string commandLine
+			/*string tableName, params string[] columns*/
+			)
+		{
+			SqlCommand cmd = new SqlCommand(commandLine, connection);
+			//SqlCommand cmd = new SqlCommand();
+			//cmd.Connection = connection;
+			//cmd.CommandText = "SELECT ";
+			//for(int i = 0; i < columns.Length; i++)
+			//{
+			//	cmd.Parameters.Add($"{columns[i]}", columns[i]);
+			//	cmd.CommandText += $"{columns[i]}";
+			//	cmd.CommandText += i == columns.Length - 1 ? " " : ", ";
+			//}
+			//cmd.CommandText += $"FROM {tableName}";
+
+			connection.Open();
+			reader = cmd.ExecuteReader();
+			table = new DataTable();
+			for(int i = 0; i < reader.FieldCount; i++)
+			{
+				table.Columns.Add(reader.GetName(i));
+			}
+			while (reader.Read())
+			{
+				DataRow row = table.NewRow();
+				for(int i =0; i < reader.FieldCount; i++)
+				{
+					row[i] = reader[i];
+				}
+				table.Rows.Add(row);
+			}
+			dataGridView.DataSource = table;
+			reader.Close();
+			connection.Close();
+		}
 		public void LoadGroupsToComboBox(System.Windows.Forms.ComboBox comboBox)
 		{
 			string commandLine = @"SELECT group_name FROM Groups";
@@ -77,6 +114,31 @@ namespace Academy
 			}
 			reader.Close();
 			connection.Close();
+		}
+		public void LoadDataToComboBox(System.Windows.Forms.ComboBox comboBox, 
+			string sourceTable,
+			string sourceColum, 
+			string invite = "Выберите значения")
+		{
+			string commandLine = $@"SELECT {sourceColum} FROM {sourceTable}";
+			SqlCommand cmd = new SqlCommand(commandLine,connection);
+			//SqlCommand cmd = new SqlCommand();
+			//cmd.Connection = connection;
+			//cmd.Parameters.Add("@table_name", sourceTable);
+			//cmd.Parameters.Add("@colum_name", sourceColum);
+			//cmd.CommandText = @"SELECT @colum_name FROM @table_name";
+			connection.Open();
+			reader = cmd.ExecuteReader();
+			//comboBox.Items.Clear();
+			comboBox.Items.Add(invite);
+			while (reader.Read())
+			{
+				comboBox.Items.Add(reader[0]);
+			}
+			reader.Close();
+			connection.Close();
+
+			comboBox.SelectedItem = invite;
 		}
 		public void LoadDirectionsToComboBox()
 		{
@@ -179,34 +241,22 @@ VALUES (@last_name, @first_name, @middle_name, @birth_date, (SELECT group_id FRO
 			{
 			cmd.CommandText = @"
 SELECT last_name, first_name, middle_name, birth_date, group_name, direction_name
-FROM 
-		Students
-JOIN 
-		Groups	
-ON
-		Students.[group]=Groups.group_id	
-JOIN  
-		Directions 
-ON 
-		Groups.direction=Directions.direction_id";
+FROM	Students
+JOIN 	Groups	
+ON		Students.[group]=Groups.group_id	
+JOIN  	Directions 
+ON 		Groups.direction=Directions.direction_id";
 			if(cbDirection.SelectedItem != null)cmd.CommandText +=
-@" WHERE  
-		Directions.direction_name=@direction
-";
+@" WHERE  	Directions.direction_name=@direction";
 			}
 			if(rbGroups.Checked ) 
 			{
 			cmd.CommandText = @"
-SELECT 
-		group_name, direction_name
-FROM  
-		Groups
-JOIN  
-		Directions ON Groups.direction=Directions.direction_id";
+SELECT 	group_name, direction_name
+FROM  	Groups
+JOIN  	Directions ON Groups.direction=Directions.direction_id";
 	if(cbDirection.SelectedItem != null) cmd.CommandText+=
-@" WHERE  
-		Directions.direction_name=@direction
-";
+@" WHERE  	Directions.direction_name=@direction";
 			}
 			connection.Open();
 			reader = cmd.ExecuteReader();
@@ -242,6 +292,25 @@ JOIN
 		private void rbStudents_CheckedChanged(object sender, EventArgs e)
 		{
 			cbDirection_SelectedIndexChanged(sender, e);
+		}
+
+		private void cbDirectionOnGroupTab_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			//SelectDataFromTable(dataGridViewGroups, "Groups", "group_name", "direction");
+			string commandLine = $@"
+SELECT group_name, direction_name 
+FROM Groups JOIN Directions ON direction=direction_id
+";
+			if (cbDirectionOnGroupTab.SelectedIndex != 0)
+				commandLine += $@"WHERE direction_name='{cbDirectionOnGroupTab.SelectedItem}'";
+			SelectDataFromTable(dataGridViewGroups, commandLine);
+			lblGroups.Text = $"Количество групп: {dataGridViewGroups.Rows.Count -1}";
+		}
+
+		private void btnGroupAdd_Click(object sender, EventArgs e)
+		{
+			AddGroup add = new AddGroup();
+
 		}
 	}
 }
