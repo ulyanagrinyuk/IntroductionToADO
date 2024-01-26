@@ -29,13 +29,11 @@
 		private void InitializeComponent()
 		{
 			this.cbDirection = new System.Windows.Forms.ComboBox();
-			this.cbLearningFrom = new System.Windows.Forms.ComboBox();
-			this.cbTime = new System.Windows.Forms.ComboBox();
+			this.cbLearningForm = new System.Windows.Forms.ComboBox();
+			this.cbLearningTime = new System.Windows.Forms.ComboBox();
 			this.tbGroupName = new System.Windows.Forms.ComboBox();
-			this.groupBoxDaysOfWeek = new System.Windows.Forms.GroupBox();
-			this.cbnMon = new System.Windows.Forms.CheckBox();
-			this.cbTew = new System.Windows.Forms.CheckBox();
-			this.groupBoxDaysOfWeek.SuspendLayout();
+			this.lcbWeek = new System.Windows.Forms.CheckedListBox();
+			this.btnGenerate = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// cbDirection
@@ -47,78 +45,75 @@
 			this.cbDirection.TabIndex = 0;
 			this.cbDirection.Text = "Направление обученя";
 			// 
-			// cbLearningFrom
+			// cbLearningForm
 			// 
-			this.cbLearningFrom.FormattingEnabled = true;
-			this.cbLearningFrom.Location = new System.Drawing.Point(13, 39);
-			this.cbLearningFrom.Name = "cbLearningFrom";
-			this.cbLearningFrom.Size = new System.Drawing.Size(325, 21);
-			this.cbLearningFrom.TabIndex = 1;
-			this.cbLearningFrom.Text = "Форма обучения";
+			this.cbLearningForm.FormattingEnabled = true;
+			this.cbLearningForm.Location = new System.Drawing.Point(13, 39);
+			this.cbLearningForm.Name = "cbLearningForm";
+			this.cbLearningForm.Size = new System.Drawing.Size(325, 21);
+			this.cbLearningForm.TabIndex = 1;
+			this.cbLearningForm.Text = "Форма обучения";
 			// 
-			// cbTime
+			// cbLearningTime
 			// 
-			this.cbTime.FormattingEnabled = true;
-			this.cbTime.Location = new System.Drawing.Point(13, 66);
-			this.cbTime.Name = "cbTime";
-			this.cbTime.Size = new System.Drawing.Size(325, 21);
-			this.cbTime.TabIndex = 2;
-			this.cbTime.Text = "Время обучения";
+			this.cbLearningTime.FormattingEnabled = true;
+			this.cbLearningTime.Location = new System.Drawing.Point(13, 66);
+			this.cbLearningTime.Name = "cbLearningTime";
+			this.cbLearningTime.Size = new System.Drawing.Size(325, 21);
+			this.cbLearningTime.TabIndex = 2;
+			this.cbLearningTime.Text = "Время обучения";
 			// 
 			// tbGroupName
 			// 
 			this.tbGroupName.FormattingEnabled = true;
-			this.tbGroupName.Location = new System.Drawing.Point(12, 127);
+			this.tbGroupName.Location = new System.Drawing.Point(13, 133);
 			this.tbGroupName.Name = "tbGroupName";
 			this.tbGroupName.Size = new System.Drawing.Size(325, 21);
 			this.tbGroupName.TabIndex = 3;
 			this.tbGroupName.Text = "Нзвание группы";
 			// 
-			// groupBoxDaysOfWeek
+			// lcbWeek
 			// 
-			this.groupBoxDaysOfWeek.Controls.Add(this.cbTew);
-			this.groupBoxDaysOfWeek.Controls.Add(this.cbnMon);
-			this.groupBoxDaysOfWeek.Location = new System.Drawing.Point(13, 93);
-			this.groupBoxDaysOfWeek.Name = "groupBoxDaysOfWeek";
-			this.groupBoxDaysOfWeek.Size = new System.Drawing.Size(325, 33);
-			this.groupBoxDaysOfWeek.TabIndex = 4;
-			this.groupBoxDaysOfWeek.TabStop = false;
-			this.groupBoxDaysOfWeek.Text = "Дни недели";
+			this.lcbWeek.CheckOnClick = true;
+			this.lcbWeek.ColumnWidth = 45;
+			this.lcbWeek.FormattingEnabled = true;
+			this.lcbWeek.Items.AddRange(new object[] {
+            "Пн",
+            "Вт",
+            "Ср",
+            "Чт",
+            "Пн",
+            "Сб",
+            "Вс"});
+			this.lcbWeek.Location = new System.Drawing.Point(12, 93);
+			this.lcbWeek.MultiColumn = true;
+			this.lcbWeek.Name = "lcbWeek";
+			this.lcbWeek.Size = new System.Drawing.Size(326, 19);
+			this.lcbWeek.TabIndex = 5;
 			// 
-			// cbnMon
+			// btnGenerate
 			// 
-			this.cbnMon.AutoSize = true;
-			this.cbnMon.Location = new System.Drawing.Point(6, 16);
-			this.cbnMon.Name = "cbnMon";
-			this.cbnMon.Size = new System.Drawing.Size(40, 17);
-			this.cbnMon.TabIndex = 0;
-			this.cbnMon.Text = "Пн";
-			this.cbnMon.UseVisualStyleBackColor = true;
-			// 
-			// cbTew
-			// 
-			this.cbTew.AutoSize = true;
-			this.cbTew.Location = new System.Drawing.Point(52, 16);
-			this.cbTew.Name = "cbTew";
-			this.cbTew.Size = new System.Drawing.Size(38, 17);
-			this.cbTew.TabIndex = 1;
-			this.cbTew.Text = "Вт";
-			this.cbTew.UseVisualStyleBackColor = true;
+			this.btnGenerate.Location = new System.Drawing.Point(274, 171);
+			this.btnGenerate.Name = "btnGenerate";
+			this.btnGenerate.Size = new System.Drawing.Size(75, 23);
+			this.btnGenerate.TabIndex = 6;
+			this.btnGenerate.Text = "Generate";
+			this.btnGenerate.UseVisualStyleBackColor = true;
+			this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
 			// 
 			// AddGroup
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(350, 160);
-			this.Controls.Add(this.groupBoxDaysOfWeek);
+			this.ClientSize = new System.Drawing.Size(350, 206);
+			this.Controls.Add(this.btnGenerate);
+			this.Controls.Add(this.lcbWeek);
 			this.Controls.Add(this.tbGroupName);
-			this.Controls.Add(this.cbTime);
-			this.Controls.Add(this.cbLearningFrom);
+			this.Controls.Add(this.cbLearningTime);
+			this.Controls.Add(this.cbLearningForm);
 			this.Controls.Add(this.cbDirection);
 			this.Name = "AddGroup";
 			this.Text = "AddGroup";
-			this.groupBoxDaysOfWeek.ResumeLayout(false);
-			this.groupBoxDaysOfWeek.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -126,11 +121,10 @@
 		#endregion
 
 		private System.Windows.Forms.ComboBox cbDirection;
-		private System.Windows.Forms.ComboBox cbLearningFrom;
-		private System.Windows.Forms.ComboBox cbTime;
+		private System.Windows.Forms.ComboBox cbLearningForm;
+		private System.Windows.Forms.ComboBox cbLearningTime;
 		private System.Windows.Forms.ComboBox tbGroupName;
-		private System.Windows.Forms.GroupBox groupBoxDaysOfWeek;
-		private System.Windows.Forms.CheckBox cbnMon;
-		private System.Windows.Forms.CheckBox cbTew;
+		private System.Windows.Forms.CheckedListBox lcbWeek;
+		private System.Windows.Forms.Button btnGenerate;
 	}
 }
