@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Diagnostics;
+using System.Windows.Forms.VisualStyles;
 
 namespace Academy
 {
@@ -66,10 +68,29 @@ namespace Academy
 			reader.Close();
 			connection.Close();
 		}
+		public void LoadDataFromStorageToComboBox
+			(
+			System.Windows.Forms.ComboBox comboBox,
+			
+			DataSet set,
+			string table_name,
+			string column_name,
+			string invite = "Выберите значение",
+			string condition = null
+			)
+		{
+			TablesStorage storage = new TablesStorage();
+			storage.GetDataFromBase(table_name, column_name, condition);
+			DataRow[] rows = storage.Set.Tables[0].Select();
+			for (int i = 0; i < rows.Length; i++) 
+			{
+				comboBox.Items.Add(rows[i][column_name]);
+			}
+		}
 		public void SelectDataFromTable(System.Windows.Forms.DataGridView dataGridView, string commandLine
 			/*string tableName, params string[] columns*/
 			)
-		{
+		{			
 			SqlCommand cmd = new SqlCommand(commandLine, connection);
 			//SqlCommand cmd = new SqlCommand();
 			//cmd.Connection = connection;
@@ -115,13 +136,16 @@ namespace Academy
 			reader.Close();
 			connection.Close();
 		}
-		public void LoadDataToComboBox(System.Windows.Forms.ComboBox comboBox, 
-			string sourceTable,
-			string sourceColum, 
-			string invite = "Выберите значения")
+		public void LoadDataToComboBox(System.Windows.Forms.ComboBox comboBox,
+			string sourceTable, 
+			string sourceColum,
+			string invite = "Выберите значения",
+			string condition = null
+			)
 		{
 			string commandLine = $@"SELECT {sourceColum} FROM {sourceTable}";
-			SqlCommand cmd = new SqlCommand(commandLine,connection);
+			if (condition != null) commandLine += condition;
+			SqlCommand cmd = new SqlCommand(commandLine, connection);
 			//SqlCommand cmd = new SqlCommand();
 			//cmd.Connection = connection;
 			//cmd.Parameters.Add("@table_name", sourceTable);
@@ -309,10 +333,10 @@ FROM Groups JOIN Directions ON direction=direction_id
 
 		private void btnGroupAdd_Click(object sender, EventArgs e)
 		{
-			AddGroup add = new AddGroup();
-			LoadDataToComboBox(add.CBDirection, "Directions", "direction_name", "Выберите напрвление обучения");
-			LoadDataToComboBox(add.CBLearningForm, "LearningForms", "form_name", "Выберите форму обучения");
-			LoadDataToComboBox(add.CBLearningTime, "LearningTimes", "time_name", "Выберите время обучения");
+			AddGroup add = new AddGroup(this);
+			//LoadDataToComboBox(add.CBDirection, "Directions", "direction_name", "Выберите напрвление обучения");
+			//LoadDataToComboBox(add.CBLearningForm, "LearningForms", "form_name", "Выберите форму обучения");
+			//LoadDataToComboBox(add.CBLearningTime, "LearningTimes", "time_name", "Выберите время обучения");
 			DialogResult result = add.ShowDialog();
 			if(result == DialogResult.OK)
 			{

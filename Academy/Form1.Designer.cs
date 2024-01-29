@@ -38,11 +38,11 @@
 			this.dgvStudents = new System.Windows.Forms.DataGridView();
 			this.cbGroup = new System.Windows.Forms.ComboBox();
 			this.tabPageGroups = new System.Windows.Forms.TabPage();
+			this.lblGroups = new System.Windows.Forms.Label();
 			this.cbDirectionOnGroupTab = new System.Windows.Forms.ComboBox();
 			this.btnGroupAdd = new System.Windows.Forms.Button();
 			this.dataGridViewGroups = new System.Windows.Forms.DataGridView();
 			this.tabPageTeachers = new System.Windows.Forms.TabPage();
-			this.lblGroups = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPageStudents.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
@@ -166,6 +166,15 @@
 			this.tabPageGroups.TabIndex = 2;
 			this.tabPageGroups.Text = "Группы";
 			// 
+			// lblGroups
+			// 
+			this.lblGroups.AutoSize = true;
+			this.lblGroups.Location = new System.Drawing.Point(353, 11);
+			this.lblGroups.Name = "lblGroups";
+			this.lblGroups.Size = new System.Drawing.Size(100, 13);
+			this.lblGroups.TabIndex = 3;
+			this.lblGroups.Text = "Количество групп:";
+			// 
 			// cbDirectionOnGroupTab
 			// 
 			this.cbDirectionOnGroupTab.FormattingEnabled = true;
@@ -187,6 +196,7 @@
 			// 
 			// dataGridViewGroups
 			// 
+			this.dataGridViewGroups.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.dataGridViewGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewGroups.Location = new System.Drawing.Point(6, 45);
 			this.dataGridViewGroups.Name = "dataGridViewGroups";
@@ -202,15 +212,6 @@
 			this.tabPageTeachers.TabIndex = 1;
 			this.tabPageTeachers.Text = "Преподаватели";
 			this.tabPageTeachers.UseVisualStyleBackColor = true;
-			// 
-			// lblGroups
-			// 
-			this.lblGroups.AutoSize = true;
-			this.lblGroups.Location = new System.Drawing.Point(353, 11);
-			this.lblGroups.Name = "lblGroups";
-			this.lblGroups.Size = new System.Drawing.Size(100, 13);
-			this.lblGroups.TabIndex = 3;
-			this.lblGroups.Text = "Количество групп:";
 			// 
 			// Form1
 			// 
