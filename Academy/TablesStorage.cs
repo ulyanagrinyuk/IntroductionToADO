@@ -21,21 +21,21 @@ namespace Academy
 			connection = new SqlConnection(connectionString);
 			set = new DataSet();
 		}
-		//public void GetDataFromBase(string table, string columns, string condition)
-		//{
-		//	try 
-		//	{
-		//		string cmd = $"SELECT {columns} FROM {table} WHERE {condition}";
-		//		adapter = new SqlDataAdapter(cmd, connection);
-		//		builder = new SqlCommandBuilder(adapter);
-		//		adapter.Fill(set);
+		public void GetDataFromBase(string table)
+		{
+			try
+			{
+				string cmd = $"SELECT * FROM {table}";
+				adapter = new SqlDataAdapter(cmd, connection);
+				builder = new SqlCommandBuilder(adapter);
+				adapter.Fill(set);
 
-		//	}
-		//	catch (Exception e)
-		//	{
-		//		throw e;
-		//	}
-		//}
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+		}
 		public void GetDataFromBase(string tables, string columns, string condition)
 		{
 			try

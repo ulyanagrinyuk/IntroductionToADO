@@ -37,7 +37,7 @@ namespace Academy
 			connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
 			connection = new SqlConnection(connectionString);
 			GetDataFromBase();
-		//	mainForm.LoadDataToComboBox(cbDirection, "Directions", "direction_name", "Выберите напрвление обучения");
+		//mainForm.LoadDataToComboBox(cbDirection, "Directions", "direction_name", "Выберите напрвление обучения");
 			mainForm.LoadDataToComboBox(cbLearningForm, "LearningForms", "form_name", "Выберите форму обучения");
 			mainForm.LoadDataToComboBox(cbLearningTime, "LearningTimes", "time_name", "Выберите время обучения");
 			cbWeek = new CheckBox[7];			
@@ -67,7 +67,7 @@ namespace Academy
 			string group_name = "";
 			if (cbLearningForm.SelectedItem.ToString() != "Годичные курсы")
 			{
-				if (cbLearningForm.SelectedItem.ToString() == "Полустационар") //group_name += lcbWeek.SelectedItem.ToString();
+				if (cbLearningForm.SelectedItem.ToString() == "Полустационар") group_name += lcbWeek.SelectedItem.ToString();
 				//if (cbDirection.SelectedItem.ToString() == "Разработка программного обеспечения")
 				{
 					//DataRow[] rows = set.Tables["Directions"].Select("direction_name='Разработка прогаммного обеспечения'");
@@ -90,7 +90,7 @@ namespace Academy
 
 		private void cbLearningForm_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			//			mainForm.LoadDataToComboBox
+				//	mainForm.LoadDataToComboBox
 			//				(
 			//				cbDirection,
 			//				"Directions, LearningForms, LearningFormsDirectionsRelation",
@@ -119,5 +119,7 @@ AND LearningFormsDirectionsRelation.direction = Directions.direction_id
 AND form_name = '{cbLearningForm.SelectedItem.ToString()}'"
 				);
 		}
+
+		
 	}
 }

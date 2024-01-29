@@ -44,6 +44,7 @@
 			this.cbDirection.Size = new System.Drawing.Size(325, 21);
 			this.cbDirection.TabIndex = 0;
 			this.cbDirection.Text = "Направление обученя";
+			
 			// 
 			// cbLearningForm
 			// 
