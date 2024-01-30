@@ -341,5 +341,29 @@ FROM Groups JOIN Directions ON direction=direction_id
 
 			}
 		}
+
+		private void cbSearch_TextChanged(object sender, EventArgs e)
+		{
+			string searchText = cbSearch.Text;
+			string stud = "SELECT * FROM Students WHERE CONCAT(last_name, first_name, middle_name) LIKE @cbSearchText";
+			SqlCommand cmd = new SqlCommand(stud, connection);
+			cmd.Parameters.Add("@cbSearchText", "%" + searchText + "%");
+			connection.Open();
+			reader = cmd.ExecuteReader();
+			table = new DataTable();
+			for(int i = 0; i < reader.FieldCount; i++) table.Columns.Add(reader.GetName(i));
+			while(reader.Read())
+			{
+				DataRow row = table.NewRow();
+				for(int i = 0; i < reader.FieldCount;i++)
+				{
+					row[i] = reader[i];
+				}
+				table.Rows.Add(row);
+			}
+				dgvStudents.DataSource = table;
+				reader.Close();
+				connection.Close();
+		}
 	}
 }

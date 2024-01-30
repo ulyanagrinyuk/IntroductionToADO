@@ -30,6 +30,8 @@
 		{
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPageStudents = new System.Windows.Forms.TabPage();
+			this.lablSearch = new System.Windows.Forms.Label();
+			this.cbSearch = new System.Windows.Forms.TextBox();
 			this.rbStudents = new System.Windows.Forms.RadioButton();
 			this.rbGroups = new System.Windows.Forms.RadioButton();
 			this.cbDirection = new System.Windows.Forms.ComboBox();
@@ -66,6 +68,8 @@
 			// 
 			// tabPageStudents
 			// 
+			this.tabPageStudents.Controls.Add(this.lablSearch);
+			this.tabPageStudents.Controls.Add(this.cbSearch);
 			this.tabPageStudents.Controls.Add(this.rbStudents);
 			this.tabPageStudents.Controls.Add(this.rbGroups);
 			this.tabPageStudents.Controls.Add(this.cbDirection);
@@ -81,10 +85,27 @@
 			this.tabPageStudents.Text = "Студенты";
 			this.tabPageStudents.UseVisualStyleBackColor = true;
 			// 
+			// lablSearch
+			// 
+			this.lablSearch.AutoSize = true;
+			this.lablSearch.Location = new System.Drawing.Point(167, 41);
+			this.lablSearch.Name = "lablSearch";
+			this.lablSearch.Size = new System.Drawing.Size(94, 13);
+			this.lablSearch.TabIndex = 8;
+			this.lablSearch.Text = "Поиск Студентов";
+			// 
+			// cbSearch
+			// 
+			this.cbSearch.Location = new System.Drawing.Point(6, 38);
+			this.cbSearch.Name = "cbSearch";
+			this.cbSearch.Size = new System.Drawing.Size(145, 20);
+			this.cbSearch.TabIndex = 7;
+			this.cbSearch.TextChanged += new System.EventHandler(this.cbSearch_TextChanged);
+			// 
 			// rbStudents
 			// 
 			this.rbStudents.AutoSize = true;
-			this.rbStudents.Location = new System.Drawing.Point(268, 37);
+			this.rbStudents.Location = new System.Drawing.Point(263, 68);
 			this.rbStudents.Name = "rbStudents";
 			this.rbStudents.Size = new System.Drawing.Size(73, 17);
 			this.rbStudents.TabIndex = 6;
@@ -96,7 +117,7 @@
 			// rbGroups
 			// 
 			this.rbGroups.AutoSize = true;
-			this.rbGroups.Location = new System.Drawing.Point(170, 37);
+			this.rbGroups.Location = new System.Drawing.Point(170, 68);
 			this.rbGroups.Name = "rbGroups";
 			this.rbGroups.Size = new System.Drawing.Size(62, 17);
 			this.rbGroups.TabIndex = 5;
@@ -108,9 +129,9 @@
 			// cbDirection
 			// 
 			this.cbDirection.FormattingEnabled = true;
-			this.cbDirection.Location = new System.Drawing.Point(3, 33);
+			this.cbDirection.Location = new System.Drawing.Point(6, 64);
 			this.cbDirection.Name = "cbDirection";
-			this.cbDirection.Size = new System.Drawing.Size(149, 21);
+			this.cbDirection.Size = new System.Drawing.Size(145, 21);
 			this.cbDirection.TabIndex = 4;
 			this.cbDirection.SelectedIndexChanged += new System.EventHandler(this.cbDirection_SelectedIndexChanged);
 			// 
@@ -138,9 +159,9 @@
 			// dgvStudents
 			// 
 			this.dgvStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgvStudents.Location = new System.Drawing.Point(0, 60);
+			this.dgvStudents.Location = new System.Drawing.Point(0, 104);
 			this.dgvStudents.Name = "dgvStudents";
-			this.dgvStudents.Size = new System.Drawing.Size(772, 350);
+			this.dgvStudents.Size = new System.Drawing.Size(772, 306);
 			this.dgvStudents.TabIndex = 1;
 			// 
 			// cbGroup
@@ -248,6 +269,8 @@
 		private System.Windows.Forms.DataGridView dataGridViewGroups;
 		private System.Windows.Forms.ComboBox cbDirectionOnGroupTab;
 		private System.Windows.Forms.Label lblGroups;
+		private System.Windows.Forms.Label lablSearch;
+		private System.Windows.Forms.TextBox cbSearch;
 	}
 }
 
