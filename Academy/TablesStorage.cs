@@ -10,7 +10,7 @@ using System.Configuration;
 namespace Academy
 {
 	public class TablesStorage
-	{ SqlConnection connection;
+	{
         SqlDataAdapter adapter;
         DataSet set;
         SqlCommandBuilder builder;
@@ -29,7 +29,6 @@ namespace Academy
 				adapter = new SqlDataAdapter(cmd, connection);
 				builder = new SqlCommandBuilder(adapter);
 				adapter.Fill(set);
-
 			}
 			catch (Exception e)
 			{
