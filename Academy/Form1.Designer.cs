@@ -88,7 +88,7 @@
 			// lablSearch
 			// 
 			this.lablSearch.AutoSize = true;
-			this.lablSearch.Location = new System.Drawing.Point(167, 41);
+			this.lablSearch.Location = new System.Drawing.Point(167, 86);
 			this.lablSearch.Name = "lablSearch";
 			this.lablSearch.Size = new System.Drawing.Size(94, 13);
 			this.lablSearch.TabIndex = 8;
@@ -96,7 +96,7 @@
 			// 
 			// cbSearch
 			// 
-			this.cbSearch.Location = new System.Drawing.Point(6, 38);
+			this.cbSearch.Location = new System.Drawing.Point(6, 78);
 			this.cbSearch.Name = "cbSearch";
 			this.cbSearch.Size = new System.Drawing.Size(145, 20);
 			this.cbSearch.TabIndex = 7;
@@ -105,7 +105,7 @@
 			// rbStudents
 			// 
 			this.rbStudents.AutoSize = true;
-			this.rbStudents.Location = new System.Drawing.Point(263, 68);
+			this.rbStudents.Location = new System.Drawing.Point(249, 51);
 			this.rbStudents.Name = "rbStudents";
 			this.rbStudents.Size = new System.Drawing.Size(73, 17);
 			this.rbStudents.TabIndex = 6;
@@ -117,7 +117,7 @@
 			// rbGroups
 			// 
 			this.rbGroups.AutoSize = true;
-			this.rbGroups.Location = new System.Drawing.Point(170, 68);
+			this.rbGroups.Location = new System.Drawing.Point(170, 51);
 			this.rbGroups.Name = "rbGroups";
 			this.rbGroups.Size = new System.Drawing.Size(62, 17);
 			this.rbGroups.TabIndex = 5;
@@ -129,7 +129,7 @@
 			// cbDirection
 			// 
 			this.cbDirection.FormattingEnabled = true;
-			this.cbDirection.Location = new System.Drawing.Point(6, 64);
+			this.cbDirection.Location = new System.Drawing.Point(6, 42);
 			this.cbDirection.Name = "cbDirection";
 			this.cbDirection.Size = new System.Drawing.Size(145, 21);
 			this.cbDirection.TabIndex = 4;
@@ -163,6 +163,7 @@
 			this.dgvStudents.Name = "dgvStudents";
 			this.dgvStudents.Size = new System.Drawing.Size(772, 306);
 			this.dgvStudents.TabIndex = 1;
+			//this.dgvStudents.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStudents_CellDoubleClick);
 			// 
 			// cbGroup
 			// 

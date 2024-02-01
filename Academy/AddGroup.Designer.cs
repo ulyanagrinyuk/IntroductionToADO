@@ -34,22 +34,23 @@
 			this.tbGroupName = new System.Windows.Forms.ComboBox();
 			this.lcbWeek = new System.Windows.Forms.CheckedListBox();
 			this.btnGenerate = new System.Windows.Forms.Button();
+			this.lblLearningDaysCode = new System.Windows.Forms.Label();
+			this.btnCreateGroup = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// cbDirection
 			// 
 			this.cbDirection.FormattingEnabled = true;
-			this.cbDirection.Location = new System.Drawing.Point(13, 12);
+			this.cbDirection.Location = new System.Drawing.Point(12, 39);
 			this.cbDirection.Name = "cbDirection";
 			this.cbDirection.Size = new System.Drawing.Size(325, 21);
 			this.cbDirection.TabIndex = 0;
-			this.cbDirection.Text = "Направление обученя";
-			
+			this.cbDirection.Text = "Выберите направление обученя";
 			// 
 			// cbLearningForm
 			// 
 			this.cbLearningForm.FormattingEnabled = true;
-			this.cbLearningForm.Location = new System.Drawing.Point(13, 39);
+			this.cbLearningForm.Location = new System.Drawing.Point(12, 12);
 			this.cbLearningForm.Name = "cbLearningForm";
 			this.cbLearningForm.Size = new System.Drawing.Size(325, 21);
 			this.cbLearningForm.TabIndex = 1;
@@ -68,7 +69,7 @@
 			// tbGroupName
 			// 
 			this.tbGroupName.FormattingEnabled = true;
-			this.tbGroupName.Location = new System.Drawing.Point(13, 133);
+			this.tbGroupName.Location = new System.Drawing.Point(12, 144);
 			this.tbGroupName.Name = "tbGroupName";
 			this.tbGroupName.Size = new System.Drawing.Size(325, 21);
 			this.tbGroupName.TabIndex = 3;
@@ -92,10 +93,11 @@
 			this.lcbWeek.Name = "lcbWeek";
 			this.lcbWeek.Size = new System.Drawing.Size(326, 19);
 			this.lcbWeek.TabIndex = 5;
+			this.lcbWeek.SelectedIndexChanged += new System.EventHandler(this.lcbWeek_SelectedIndexChanged);
 			// 
 			// btnGenerate
 			// 
-			this.btnGenerate.Location = new System.Drawing.Point(274, 171);
+			this.btnGenerate.Location = new System.Drawing.Point(263, 170);
 			this.btnGenerate.Name = "btnGenerate";
 			this.btnGenerate.Size = new System.Drawing.Size(75, 23);
 			this.btnGenerate.TabIndex = 6;
@@ -103,11 +105,32 @@
 			this.btnGenerate.UseVisualStyleBackColor = true;
 			this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
 			// 
+			// lblLearningDaysCode
+			// 
+			this.lblLearningDaysCode.AutoSize = true;
+			this.lblLearningDaysCode.Location = new System.Drawing.Point(12, 125);
+			this.lblLearningDaysCode.Name = "lblLearningDaysCode";
+			this.lblLearningDaysCode.Size = new System.Drawing.Size(77, 13);
+			this.lblLearningDaysCode.TabIndex = 7;
+			this.lblLearningDaysCode.Text = "Дни обучения";
+			// 
+			// btnCreateGroup
+			// 
+			this.btnCreateGroup.Location = new System.Drawing.Point(16, 170);
+			this.btnCreateGroup.Name = "btnCreateGroup";
+			this.btnCreateGroup.Size = new System.Drawing.Size(98, 23);
+			this.btnCreateGroup.TabIndex = 8;
+			this.btnCreateGroup.Text = "Создать группу";
+			this.btnCreateGroup.UseVisualStyleBackColor = true;
+			this.btnCreateGroup.Click += new System.EventHandler(this.btnCreateGroup_Click);
+			// 
 			// AddGroup
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(350, 206);
+			this.Controls.Add(this.btnCreateGroup);
+			this.Controls.Add(this.lblLearningDaysCode);
 			this.Controls.Add(this.btnGenerate);
 			this.Controls.Add(this.lcbWeek);
 			this.Controls.Add(this.tbGroupName);
@@ -117,6 +140,7 @@
 			this.Name = "AddGroup";
 			this.Text = "AddGroup";
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -128,5 +152,7 @@
 		private System.Windows.Forms.ComboBox tbGroupName;
 		private System.Windows.Forms.CheckedListBox lcbWeek;
 		private System.Windows.Forms.Button btnGenerate;
+		private System.Windows.Forms.Label lblLearningDaysCode;
+		private System.Windows.Forms.Button btnCreateGroup;
 	}
 }

@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+
 namespace Academy
 {
-	public class TablesStorage
+	public class TableStorage
 	{
-        SqlDataAdapter adapter;
-        DataSet set;
-        SqlCommandBuilder builder;
-        public DataSet Set { get => set; }
-		public TablesStorage() 
+		SqlConnection connection;
+		SqlDataAdapter adapter;
+		DataSet set;
+		SqlCommandBuilder builder;
+		public DataSet Set { get => set; }
+		public TableStorage()
 		{
 			string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
 			connection = new SqlConnection(connectionString);
@@ -28,7 +30,7 @@ namespace Academy
 				string cmd = $"SELECT * FROM {table}";
 				adapter = new SqlDataAdapter(cmd, connection);
 				builder = new SqlCommandBuilder(adapter);
-				adapter.Fill(set);
+				adapter.Fill(set, table);
 			}
 			catch (Exception e)
 			{
@@ -49,6 +51,5 @@ namespace Academy
 				throw e;
 			}
 		}
-
 	}
 }
