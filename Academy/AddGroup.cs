@@ -68,18 +68,6 @@ namespace Academy
 				byte day = 1;
 				day <<= lcbWeek.CheckedIndices[i];
 				days |= day;
-				/*
-				--------------------------------- 
-				<< (побитовый сдвиг влево) - это бинарный оператор, который сдвигает число на заданное количество бит влево.
-											 Сдвиг числа на 1 бит  влево увеличивает число в два	раза (выполняет умножение числа на 2)
-											 Сдвиг числа на 2 бита влево увеличивает число в четыре раза (выполняет умножение числа на 4)
-											 Сдвиг числа на 3 бита влево увеличивает число в восемь раз  (выполняет умножение числа на 8)
-				--------------------------------- 
-				| (побитовое сложение, побитовый OR) - если соответствующий бит хотя бы в одном операнде == 1, то этот же бит результат будет 1.
-				--------------------------------- 
-				Все побитовые операторы можно комбинировать с оператором присваивания.
-				--------------------------------- 
-				*/
 			}
 
 			return days;
@@ -109,10 +97,6 @@ namespace Academy
 		}
 		string GenerateGroupName()
 		{
-			//PD_212 - Программирование, День, Поток №212
-			//SD_212 - Сетевые технологии, День, Поток 212
-			//VSU_213 - Воскресенье, Сети, Утро 213й поток
-			//Java_326
 			//if (cbLearningForm.SelectedIndex == 0) return "Выберите форму обучения";
 			//if (cbDirection.SelectedItem == null || cbDirection.SelectedItem.ToString() == "Выберите направление обучения") return "Выберите направление обучения";
 			//if (cbTime.SelectedIndex == 0) return "Выберите время обучения";
@@ -213,8 +197,34 @@ AND		form_name = '{cbLearningForm.SelectedItem.ToString()}'
 			if (cbLearningForm.SelectedItem.ToString() == "Полустационар" && lcbWeek.CheckedItems.Count != 1) wrong_days = true;
 			if (cbLearningForm.SelectedItem.ToString() == "Годичные курсы" && lcbWeek.CheckedItems.Count != 2) wrong_days = true;
 			if (wrong_days) MessageBox.Show(this, "Проверьте дни обучения", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			else MessageBox.Show(this, "Все хорошо ;-)", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			//else			MessageBox.Show(this, "Все хорошо ;-)", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			if (wrong_days) return;
+
+			TableStorage storage = new TableStorage();
+			storage.GetDataFromBase("Directions");
+			storage.GetDataFromBase("LearningTimes");
+			storage.GetDataFromBase("Groups");
+			//string insert = $@"
+			//	INSERT INTO Groups(group_name, direction, learning_time, learning_days)
+			//	VALUES (
+			//	'{tbGroupName.Text}'
+			//	 {set.Tables["Directions"].Select($"direction_name={cbDirection.SelectedItem.ToString()}")[0]["direction_id"]}
+			//	{set.Tables["cbLearningTimes"].Select($"time_name={cbLearningTime.SelectedItem.ToString()}")[0]["time_id"]}
+			//	{GetBitSet()}
+			//	)";
+			////	storage.Adapter.Update(storage.Set);
+			////storage.Adapter.InsertCommand.ExecuteNonQuery();
+			//storage.Insert(insert_cmd);
+
+			DataRow row = storage.Set.Tables["Groups"].NewRow();
+			row["group_name"] = tbGroupName.Text;
+			row["direction"] = storage.Set.Tables["Directions"].Select($"direction_name='{cbDirection.SelectedItem.ToString()}'")[0]["direction_id"];
+			row["learning_time"] = storage.Set.Tables["LearningTimes"].Select($"time_name='{cbLearningTime.SelectedItem.ToString()}'")[0][0];
+			row["learning_days"] = GetBitSet();
+			storage.Set.Tables["Groups"].Rows.Add(row);
+			storage.Adapter.Update(storage.Set, "Groups");
+			this.Close();
 		}
+
 	}
-}
+}	
