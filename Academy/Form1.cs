@@ -120,12 +120,23 @@ namespace Academy
 			{
 				table.Columns.Add(reader.GetName(i));
 			}
+			table.Columns.Add("Дни обучения");
+
 			while (reader.Read())
 			{
 				DataRow row = table.NewRow();
 				for (int i = 0; i < reader.FieldCount; i++)
 				{
 					row[i] = reader[i];
+				}
+				//if (row["learning_days"] != null)
+				try
+				{
+					row["learning_days"] = BitSetToDays(Convert.ToByte(row["learning_days"]));
+
+				}
+				catch(Exception e)
+				{
 				}
 				table.Rows.Add(row);
 			}
@@ -310,7 +321,7 @@ JOIN Directions ON Groups.direction=Directions.direction_id";
 		{
 			//SelectDataFromTable(dataGridViewGroups, "Groups", "group_name", "direction");
 			string commandLine = $@"
-SELECT group_name, direction_name 
+SELECT group_name, learning_days,direction_name 
 FROM Groups JOIN Directions ON direction=direction_id
 ";
 			if (cbDirectionOnGroupTab.SelectedIndex != 0)
@@ -332,6 +343,9 @@ FROM Groups JOIN Directions ON direction=direction_id
 				//storage.GetDataFromBase("Groups,Directions", "group_name,direction_name")
 				cbDirectionOnGroupTab_SelectedIndexChanged(sender, e);
 			}
+			//TableStorage storage;
+			//storage.GetDataFromBase("Groups, Directions");
+			cbDirectionOnGroupTab_SelectedIndexChanged(sender, e);
 		}
 
 		private void cbSearch_TextChanged(object sender, EventArgs e)
@@ -367,7 +381,20 @@ FROM Groups JOIN Directions ON direction=direction_id
 			storage.Adapter.Update(storage.Set);
 		}
 
-
+		private string BitSetToDays(byte bitset)
+		{
+			string[] week = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"};
+			string days = "";
+			for(int i = 0; i < week.Length; i++)
+			{
+				byte day = 1;
+				day <<= i;
+				int day_index = (int)Math.Log(day & bitset, 2);
+				if ((day & bitset) != 0)
+					days += week[day_index] + ",";
+			}
+			return days;
+		}
 
 		//private void dgvStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		//{
@@ -388,4 +415,5 @@ FROM Groups JOIN Directions ON direction=direction_id
 
 		//}
 	}
+
 }
