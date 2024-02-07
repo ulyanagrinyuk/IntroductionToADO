@@ -320,12 +320,26 @@ JOIN Directions ON Groups.direction=Directions.direction_id";
 		private void cbDirectionOnGroupTab_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			//SelectDataFromTable(dataGridViewGroups, "Groups", "group_name", "direction");
-			string commandLine = $@"
-SELECT group_name, learning_days,direction_name 
-FROM Groups JOIN Directions ON direction=direction_id
-";
+			//			string commandLine = $@"
+			//SELECT group_name, learning_days,direction_name, number_of_students
+			//FROM Groups JOIN Directions ON direction=direction_id
+			//Srudents JOIN Groups ON group = group_id
+			//";
+			string condition = "";
 			if (cbDirectionOnGroupTab.SelectedIndex != 0)
-				commandLine+= $@"WHERE direction_name='{cbDirectionOnGroupTab.SelectedItem}'";
+				condition += $@"WHERE direction_name='{cbDirectionOnGroupTab.SelectedItem}'";
+
+			string commandLine = $@"
+SELECT group_name, learning_days, direction_name, [number_of_students] = COUNT(stud_id)
+FROM Groups JOIN Directions ON direction = direction_id
+LEFT JOIN Students ON [group] = [group_id]
+{condition}
+GROUP BY [group_id], [group_name], [learning_days], [direction_name]
+ORDER BY [group_id]
+";
+
+			//if (cbDirectionOnGroupTab.SelectedIndex != 0)
+			//	commandLine+= $@"WHERE direction_name='{cbDirectionOnGroupTab.SelectedItem}'";
 			SelectDataFromTable(dataGridViewGroups, commandLine);
 			lblGroups.Text = $"Количество групп: {dataGridViewGroups.Rows.Count - 1}";
 		}
@@ -375,10 +389,25 @@ FROM Groups JOIN Directions ON direction=direction_id
 		private void btnDelete_Click(object sender, EventArgs e)
 		{
 			TableStorage storage = new TableStorage();
-			storage.GetDataFromBase("Groups, Directions", "group_name, direction_name", "direction=direction_id");	
-			dataGridViewGroups.DataSource = storage.Set.Tables[0];
-		
-			storage.Adapter.Update(storage.Set);
+			//storage.GetDataFromBase("Groups, Directions", "group_name, direction_name", "direction=direction_id");	
+			//dataGridViewGroups.DataSource = storage.Set.Tables[0];
+			//storage.GetDataFromBase("Groups");
+			//dataGridViewGroups.DataSource = storage.Set.Tables[0];
+			//foreach (DataGridViewCell cell in dataGridViewGroups.SelectedCells)
+			//{ 
+			//	storage.Set.Tables[0].Rows.RemoveAt(cell.RowIndex);
+			//	//MessageBox.Show(this, storage.Set.Tables[0].Rows[cell.RowIndex]["group_name"].ToString());
+			//	//dataGridViewGroups.Rows.RemoveAt(cell.RowIndex);
+			//}
+			//int delete_rows = storage.Adapter.Update(storage.Set.Tables["Groups"]);
+			//MessageBox.Show(this, delete_rows.ToString(), "Info");
+			MessageBox.Show(this, dataGridViewGroups.SelectedRows[0].Cells["group_name"].Value.ToString(), "Info");
+			DataRow[] row = storage.Set.Tables["Groups"].
+				Select($"group_name = '{dataGridViewGroups.SelectedRows[0].Cells["group_name"].Value.ToString()}'");
+			row[0].Delete();
+			storage.Adapter.Update(storage.Set, "Groups");
+			cbDirectionOnGroupTab_SelectedIndexChanged(sender, e);
+			
 		}
 
 		private string BitSetToDays(byte bitset)
@@ -396,24 +425,21 @@ FROM Groups JOIN Directions ON direction=direction_id
 			return days;
 		}
 
-		//private void dgvStudents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-		//{
-		//	Info info = new Info();
-		//	info.ShowDialog();
-
-
-		//	//if (e.RowIndex >= 0)
-		//	//{
-		//	//	string collumn = dgvStudents.Columns[e.ColumnIndex].ToString();
-		//	//	if (collumn == "first_name")
-		//	//	{
-		//	//		string cellValue = dgvStudents.Rows[e.RowIndex].ToString();
-		//	//		Info info = new Info();
-		//	//		info.ShowDialog();
-		//	//	}
-		//	//}
-
-		//}
+		private void dataGridViewGroups_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			TableStorage storage = new TableStorage();
+			storage.GetDataFromBase("Groups");
+			DataRow[] rows = storage.Set.Tables["Groups"].Select($"group_name = '{dataGridViewGroups.SelectedRows[0].Cells["group_name"].Value.ToString()}'");
+			AddGroup addGroup = new AddGroup
+				(
+				this,
+				rows[0]["group_name"].ToString(),
+				Convert.ToByte(rows[0]["direction"]),
+				Convert.ToByte(rows[0]["learning_time"]),
+				Convert.ToByte(rows[0]["learning_days"])
+				) ;
+			addGroup.Show(this);
+		}
 	}
 
 }

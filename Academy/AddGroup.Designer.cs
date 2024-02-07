@@ -138,7 +138,7 @@
 			this.Controls.Add(this.cbLearningForm);
 			this.Controls.Add(this.cbDirection);
 			this.Name = "AddGroup";
-			this.Text = "AddGroup";
+			this.Text = "AddGroup";			
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

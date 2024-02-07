@@ -40,6 +40,18 @@ namespace Academy
 			mainForm.LoadDataToComboBox(cbLearningTime, "LearningTimes", "time_name", "Выберите время обучения");
 			cbWeek = new CheckBox[7];
 		}
+		public AddGroup(Form1 mainForm, string group_name, byte direction, byte learning_time, byte learning_days):this(mainForm)
+		{
+			TableStorage storage = new TableStorage();
+			storage.GetDataFromBase("Direcitons");
+			storage.GetDataFromBase("LearningFormsDirectionsRelation");
+
+			tbGroupName.Text = group_name;
+			cbLearningForm.SelectedIndex =
+				Convert.ToInt32(storage.Set.Tables["LearningFormsDirectionsRelation"].Select($"direction = {direction}")[0]["learning_form"]);
+			cbDirection.SelectedItem = storage.Set.Tables["Directions"].Select($"direction={direction}")[0]["direction_name"];
+			cbLearningTime.SelectedIndex = learning_time;
+		}
 		byte GetBitSet()
 		{
 			byte days = 0;
@@ -255,5 +267,5 @@ AND		form_name = '{cbLearningForm.SelectedItem.ToString()}'
 			this.Close();
 		}
 
-	}
+		}
 }	
