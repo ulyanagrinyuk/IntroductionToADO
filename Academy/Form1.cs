@@ -391,7 +391,7 @@ ORDER BY [group_id]
 			TableStorage storage = new TableStorage();
 			//storage.GetDataFromBase("Groups, Directions", "group_name, direction_name", "direction=direction_id");	
 			//dataGridViewGroups.DataSource = storage.Set.Tables[0];
-			//storage.GetDataFromBase("Groups");
+			storage.GetDataFromBase("Groups");
 			//dataGridViewGroups.DataSource = storage.Set.Tables[0];
 			//foreach (DataGridViewCell cell in dataGridViewGroups.SelectedCells)
 			//{ 
@@ -402,12 +402,12 @@ ORDER BY [group_id]
 			//int delete_rows = storage.Adapter.Update(storage.Set.Tables["Groups"]);
 			//MessageBox.Show(this, delete_rows.ToString(), "Info");
 			MessageBox.Show(this, dataGridViewGroups.SelectedRows[0].Cells["group_name"].Value.ToString(), "Info");
-			DataRow[] row = storage.Set.Tables["Groups"].
-				Select($"group_name = '{dataGridViewGroups.SelectedRows[0].Cells["group_name"].Value.ToString()}'");
-			row[0].Delete();
+			DataRow[] rows = storage.Set.Tables["Groups"].
+			Select($"group_name = '{dataGridViewGroups.SelectedRows[0].Cells["group_name"].Value.ToString()}'");
+			rows[0].Delete();
 			storage.Adapter.Update(storage.Set, "Groups");
 			cbDirectionOnGroupTab_SelectedIndexChanged(sender, e);
-			
+
 		}
 
 		private string BitSetToDays(byte bitset)
